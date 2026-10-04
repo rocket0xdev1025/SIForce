@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Super Inu Force ($SIF) — Super Intelligence Force</title>
+  <meta name="description" content="Trump launches the Super Intelligence Force, tasked with assessing the risks of AI and recommending what role the federal government should play. Super Inu Force ($SIF) takes that order onto the battlefield." />
+  <meta name="theme-color" content="#07080c" />
+  <link rel="icon" href="logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Black+Ops+One&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: "#07080c",
+            deep: "#08111f",
+            navy: "#0e1c36",
+            gold: "#e2b657",
+            pale: "#f6e2a8",
+            cream: "#f4e7cf",
+            fur: "#e0893a",
+            flag: "#9e1b2e",
+            olive: "#a89872"
+          },
+          fontFamily: {
+            stencil: ['"Black Ops One"', "Impact", "sans-serif"],
+            command: ["Oswald", '"Arial Narrow"', "sans-serif"],
+            body: ["Barlow", '"Segoe UI"', "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    html { background: #07080c; scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: #f4e7cf;
+      font-family: Barlow, "Segoe UI", sans-serif;
+      background: transparent;
+    }
+    .war-bg, .war-shade {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+    }
+    .war-bg {
+      z-index: -3;
+      background: url("trump-field.jpg") left center / cover no-repeat;
+    }
+    .war-shade {
+      z-index: -2;
+      background:
+        linear-gradient(90deg, rgba(7, 8, 12, 0.18) 0%, rgba(7, 8, 12, 0.55) 46%, rgba(7, 8, 12, 0.82) 100%),
+        linear-gradient(180deg, rgba(8, 14, 26, 0.28) 0%, rgba(7, 8, 12, 0.72) 100%);
+    }
+    .scan {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.025),
+        rgba(255, 255, 255, 0.025) 1px,
+        transparent 1px,
+        transparent 4px
+      );
+    }
+    ::selection { background: #e2b657; color: #0e1c36; }
+    :focus-visible { outline: 2px solid #e2b657; outline-offset: 3px; }
+    .panel {
+      background: rgba(8, 17, 31, 0.86);
+      border: 1px solid rgba(226, 182, 87, 0.38);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.38);
+      backdrop-filter: blur(8px);
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      min-height: 3rem;
+      padding: 0.8rem 1.35rem;
+      font-family: Oswald, "Arial Narrow", sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid transparent;
+      transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-gold { background: #e2b657; color: #0e1c36; }
+    .btn-gold:hover { background: #f6e2a8; }
+    .btn-ghost { background: rgba(8, 17, 31, 0.55); color: #f4e7cf; border-color: #e2b657; }
+    .btn-ghost:hover { background: rgba(226, 182, 87, 0.16); }
+    .btn-flag { background: #9e1b2e; color: #f4e7cf; }
+    .btn-flag:hover { background: #c43246; }
+    .ticker { overflow: hidden; border-block: 1px solid rgba(226, 182, 87, 0.45); background: rgba(8, 17, 31, 0.9); }
+    .ticker-track { display: flex; width: max-content; animation: march 36s linear infinite; }
+    .ticker-track span { padding: 0.7rem 1.25rem; font-family: Oswald, sans-serif; letter-spacing: 0.22em; text-transform: uppercase; color: #f6e2a8; white-space: nowrap; }
+    @keyframes march { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .hazard {
+      height: 12px;
+      background: repeating-linear-gradient(-45deg, #e2b657, #e2b657 10px, #0e1c36 10px, #0e1c36 20px);
+    }
+    .stamp {
+      display: inline-block;
+      border: 3px solid #9e1b2e;
+      color: #e35a6a;
+      font-family: Oswald, sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.7rem;
+      transform: rotate(-8deg);
+    }
+    .corner { position: relative; }
+    .corner::before, .corner::after {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-color: #e2b657;
+      border-style: solid;
+      pointer-events: none;
+    }
+    .corner::before { top: 8px; left: 8px; border-width: 2px 0 0 2px; }
+    .corner::after { right: 8px; bottom: 8px; border-width: 0 2px 2px 0; }
+    .quote {
+      border-left: 3px solid #e2b657;
+      padding-left: 1rem;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .ticker-track { animation: none; }
+      .btn:hover { transform: none; }
+    }
+  </style>
+</head>
+<body class="font-body antialiased">
+  <div class="war-bg" aria-hidden="true"></div>
+  <div class="war-shade" aria-hidden="true"></div>
+  <div class="scan" aria-hidden="true"></div>
+
+  <div class="sticky top-0 z-50">
+    <div class="flex h-1.5" aria-hidden="true">
+      <span class="flex-1 bg-navy"></span>
+      <span class="flex-1 bg-cream"></span>
+      <span class="flex-1 bg-flag"></span>
+      <span class="flex-1 bg-gold"></span>
+      <span class="flex-1 bg-fur"></span>
+    </div>
+    <header class="border-b border-gold/40 bg-deep/90 backdrop-blur-md">
+      <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
+        <a href="#top" class="flex items-center gap-3">
+          <img src="logo.jpg" alt="" class="h-12 w-12 border border-gold object-cover object-top" />
+          <span class="leading-none">
+            <span class="block font-command text-sm tracking-[0.22em] text-gold">SUPER INU FORCE</span>
+            <span class="block font-stencil text-xl text-cream">$SIF</span>
+          </span>
+        </a>
+        <button id="menu-btn" class="btn btn-ghost min-h-0 px-3 py-2 text-sm lg:hidden" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+        <nav id="site-nav" class="hidden items-center gap-5 lg:flex">
+          <a class="font-command tracking-[0.16em] text-cream/90 hover:text-gold" href="#orders">Orders</a>
+          <a class="font-command tracking-[0.16em] text-cream/90 hover:text-gold" href="#field">Field</a>
+          <a class="font-command tracking-[0.16em] text-cream/90 hover:text-gold" href="#how-to-buy">How to Buy</a>
+          <a class="font-command tracking-[0.16em] text-cream/90 hover:text-gold" href="#chart">Chart</a>
+          <a href="https://x.com/superinuforce" target="_blank" rel="noopener noreferrer">
+            <img src="x.png" alt="Super Inu Force on X" class="h-10 w-10 border border-gold" />
+          </a>
+          <a class="btn btn-gold min-h-0 px-4 py-2 text-sm" href="https://app.uniswap.org/swap?chain=robinhood&outputCurrency=TBA" target="_blank" rel="noopener noreferrer">Buy Now</a>
+        </nav>
+      </div>
+      <nav id="mobile-nav" class="hidden border-t border-gold/30 bg-deep px-4 py-4 lg:hidden">
+        <div class="flex flex-col gap-3">
+          <a class="font-command tracking-[0.16em]" href="#orders">Orders</a>
+          <a class="font-command tracking-[0.16em]" href="#field">Field</a>
+          <a class="font-command tracking-[0.16em]" href="#how-to-buy">How to Buy</a>
+          <a class="font-command tracking-[0.16em]" href="#chart">Chart</a>
+          <a class="inline-flex items-center gap-3 font-command tracking-[0.16em]" href="https://x.com/superinuforce" target="_blank" rel="noopener noreferrer">
+            <img src="x.png" alt="" class="h-8 w-8 border border-gold" />
+            X / superinuforce
+          </a>
+        </div>
+      </nav>
+    </header>
+  </div>
+
+  <main id="top">
+    <section class="mx-auto grid min-h-[88vh] max-w-6xl items-center gap-10 px-4 py-14 lg:grid-cols-[minmax(0,340px)_1fr]">
+      <div class="corner panel mx-auto w-full max-w-sm p-4">
+        <p class="mb-3 font-command text-xs tracking-[0.28em] text-gold">COMMANDING OFFICER</p>
+        <img src="logo.jpg" alt="Super Inu Force commander in olive tactical gear, navy and gold unit patch, American flag behind him" class="w-full border border-gold/50" />
+        <p class="mt-3 font-command text-xs tracking-[0.2em] text-olive">PATCH // UNITED STATES SUPER INU FORCE</p>
+      </div>
+      <div>
+        <p class="font-command text-sm tracking-[0.32em] text-fur">BATTLEFIELD // UNIT SIF // <span id="zulu">ZULU</span></p>
+        <h1 class="mt-3 font-command text-5xl font-bold uppercase leading-none text-cream sm:text-6xl">
+          Super Intelligence Force
+          <span class="mt-2 block font-stencil text-6xl text-gold sm:text-8xl">$SIF</span>
+        </h1>
+        <p class="quote mt-6 max-w-2xl text-lg leading-relaxed text-cream sm:text-xl">
+          Trump launches the Super Intelligence Force, tasked with assessing the risks of AI and recommending what role the federal government should play.
+        </p>
+        <p class="mt-4 max-w-2xl leading-relaxed text-olive">
+          Super Inu Force takes that order onto the mud. Tails locked. Minds blazing. The pack reads every machine risk before the drones blink, then sends the recommendation up the chain — bravery plus brains, zero mercy for rogue code.
+        </p>
+        <div class="mt-8 flex flex-wrap items-center gap-3">
+          <a class="btn btn-gold" href="https://app.uniswap.org/swap?chain=robinhood&outputCurrency=TBA" target="_blank" rel="noopener noreferrer">Buy Now</a>
+          <a class="btn btn-ghost" href="https://dexscreener.com/robinhood/TBA" target="_blank" rel="noopener noreferrer">Chart</a>
+          <a href="https://x.com/superinuforce" target="_blank" rel="noopener noreferrer" class="inline-flex">
+            <img src="x.png" alt="Super Inu Force on X" class="h-12 w-12 border border-gold" />
+          </a>
+        </div>
+        <div class="panel mt-8 flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p class="font-command text-xs tracking-[0.28em] text-gold">CONTRACT ADDRESS</p>
+            <p id="contract-address" class="mt-1 break-all font-mono text-xl text-cream">TBA</p>
+          </div>
+          <button class="btn btn-flag" type="button" data-copy-ca>Copy CA</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track font-command text-sm">
+        <span>Super Intelligence Force</span><span>Assess the risks of AI</span><span>Recommend the federal role</span><span>Tails Locked</span><span>Minds Blazing</span><span>$SIF</span><span>Robinhood ETH</span><span>Zero mercy for rogue code</span>
+        <span>Super Intelligence Force</span><span>Assess the risks of AI</span><span>Recommend the federal role</span><span>Tails Locked</span><span>Minds Blazing</span><span>$SIF</span><span>Robinhood ETH</span><span>Zero mercy for rogue code</span>
+      </div>
+    </div>
+
+    <section id="orders" class="mx-auto max-w-6xl scroll-mt-28 px-4 py-16">
+      <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p class="font-command text-xs tracking-[0.32em] text-fur">LAUNCH ORDER // 01</p>
+          <h2 class="mt-2 font-command text-4xl uppercase text-cream">Two tasks. One force.</h2>
+        </div>
+        <p class="stamp text-center text-xl">Active Duty</p>
+      </div>
+      <div class="grid gap-4 md:grid-cols-2">
+        <article class="panel corner p-6 md:p-8">
+          <p class="font-stencil text-4xl text-gold">01</p>
+          <h3 class="mt-2 font-command text-3xl uppercase">Assess the risks of AI</h3>
+          <p class="mt-4 leading-relaxed">
+            The battlefield is already full of machines that do not wait for permission. Super Inu Force maps the swarm, the wrecks, and the systems still climbing. Risk is scored in the open, under fire, before a bad model gets a second move.
+          </p>
+        </article>
+        <article class="panel corner p-6 md:p-8">
+          <p class="font-stencil text-4xl text-gold">02</p>
+          <h3 class="mt-2 font-command text-3xl uppercase">Recommend the federal role</h3>
+          <p class="mt-4 leading-relaxed">
+            Assessment without a recommendation is just noise. The force writes what Washington should hold, what it should fund, and what it should never hand to a machine. Then the pack enforces the line the briefing already drew.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="field" class="mx-auto max-w-6xl scroll-mt-28 px-4 pb-8">
+      <div class="mb-8">
+        <p class="font-command text-xs tracking-[0.32em] text-fur">AFTER ACTION // BATTLEFIELD RECORD</p>
+        <h2 class="mt-2 font-command text-4xl uppercase text-cream">The force hits the field</h2>
+        <p class="mt-4 max-w-3xl text-olive">Three frames from the launch. The order is the same in every still: storm the battlefield, assess the AI, recommend the federal role.</p>
+      </div>
+
+      <article class="panel overflow-hidden">
+        <div class="grid lg:grid-cols-2">
+          <img src="fight-field.jpg" alt="Super Inu Force commander charging a muddy battlefield under AI drones, tanks and a torn American flag behind him" class="h-full min-h-72 w-full object-cover" />
+          <div class="flex flex-col justify-center p-6 md:p-10">
+            <p class="font-command text-xs tracking-[0.28em] text-gold">REPORT 01 // THE LAUNCH</p>
+            <h3 class="mt-2 font-command text-3xl uppercase text-cream">Orders hit the mud</h3>
+            <p class="mt-4 leading-relaxed">
+              The launch does not stay in a briefing room. Trump stands up the Super Intelligence Force, and the commander takes the field at a dead run — tail locked, vest patched, the flag snapping over the tanks.
+            </p>
+            <p class="mt-3 leading-relaxed text-olive">
+              Blue-eyed drones own the smoke. He does not slow down to admire them. First task is already live: get close enough to assess what those machines can do.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <article class="panel mt-6 overflow-hidden">
+        <div class="grid lg:grid-cols-2">
+          <img src="fight-intel.jpg" alt="Commander on battlefield rubble with glowing eyes, reading a holographic AI risk board beside a torn American flag" class="order-1 h-full min-h-72 w-full object-cover lg:order-2" />
+          <div class="order-2 flex flex-col justify-center p-6 md:p-10 lg:order-1">
+            <p class="font-command text-xs tracking-[0.28em] text-gold">REPORT 02 // RISK ASSESSMENT</p>
+            <h3 class="mt-2 font-command text-3xl uppercase text-cream">Every system, scored</h3>
+            <p class="mt-4 leading-relaxed">
+              High ground on the rubble. Eyes burn cold blue over a live board — drone signatures, threat bars, and the seals of the force tied into one net. This is the assessment: which AI is a tool, which AI is already a weapon.
+            </p>
+            <p class="mt-3 leading-relaxed text-olive">
+              Super Intelligence Power cracks the picture before the next barrage. The federal role is not a slogan on this board. It is a line item next to every risk.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <article class="panel mt-6 overflow-hidden">
+        <div class="grid items-center lg:grid-cols-[1.15fr_0.85fr]">
+          <img src="fight-squad.jpg" alt="Three Super Inu Force Shiba soldiers charging a battlefield trench past wrecked combat robots" class="h-full min-h-72 w-full object-cover" />
+          <div class="p-6 md:p-10">
+            <p class="font-command text-xs tracking-[0.28em] text-gold">REPORT 03 // THE RECOMMENDATION</p>
+            <h3 class="mt-2 font-command text-3xl uppercase text-cream">What Washington should do</h3>
+            <p class="mt-4 leading-relaxed">
+              Three operators come out of the trench with the finding already made. Hold the dangerous systems. Fund the ones that serve the country. Never leave a live machine in command of a battlefield.
+            </p>
+            <p class="mt-3 leading-relaxed text-olive">
+              The wrecks in the mud are the recommendation, written where a memo cannot hide. Zero mercy for rogue code. When the flag drops back into the smoke, the role is clear, and the field is held.
+            </p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <div class="hazard mt-12" aria-hidden="true"></div>
+
+    <section id="how-to-buy" class="scroll-mt-28 bg-deep/75 py-16">
+      <div class="mx-auto max-w-6xl px-4">
+        <p class="font-command text-xs tracking-[0.32em] text-fur">FIELD ORDER // SUPPLY</p>
+        <h2 class="mt-2 font-command text-4xl uppercase text-cream">How to Buy $SIF</h2>
+        <p class="mt-4 max-w-3xl text-lg leading-relaxed">
+          Four steps. One swap. You pay with Robinhood ETH on Robinhood Chain and walk out holding $SIF. Match the contract before you sign — it reads TBA until the address is published.
+        </p>
+        <ol class="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <li class="panel p-5">
+            <p class="font-stencil text-4xl text-gold">01</p>
+            <h3 class="mt-2 font-command text-2xl uppercase">Draw your wallet</h3>
+            <p class="mt-3 text-sm leading-relaxed text-cream/90">
+              Install MetaMask, or any wallet that can join Robinhood Chain. This wallet is your kit. Every swap is signed from here, and Uniswap will ask you to switch networks when the exchange opens.
+            </p>
+          </li>
+          <li class="panel p-5">
+            <p class="font-stencil text-4xl text-gold">02</p>
+            <h3 class="mt-2 font-command text-2xl uppercase">Load Robinhood ETH</h3>
+            <p class="mt-3 text-sm leading-relaxed text-cream/90">
+              Fund that wallet with ETH on Robinhood Chain. That balance is Robinhood ETH — the only ammo this buy spends. Keep a little extra in the wallet for the network fee.
+            </p>
+          </li>
+          <li class="panel p-5">
+            <p class="font-stencil text-4xl text-gold">03</p>
+            <h3 class="mt-2 font-command text-2xl uppercase">Open the swap</h3>
+            <p class="mt-3 text-sm leading-relaxed text-cream/90">
+              Hit Buy Now. Uniswap opens on Robinhood Chain with $SIF set as the token you receive. Connect the wallet. Confirm the output token matches the contract address on this page.
+            </p>
+          </li>
+          <li class="panel p-5">
+            <p class="font-stencil text-4xl text-gold">04</p>
+            <h3 class="mt-2 font-command text-2xl uppercase">Confirm and hold</h3>
+            <p class="mt-3 text-sm leading-relaxed text-cream/90">
+              Enter how much Robinhood ETH you want to spend, review the $SIF you receive, and confirm in the wallet. When the swap clears, $SIF sits in that same wallet. Then open the chart.
+            </p>
+          </li>
+        </ol>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a class="btn btn-gold" href="https://app.uniswap.org/swap?chain=robinhood&outputCurrency=TBA" target="_blank" rel="noopener noreferrer">Buy Now</a>
+          <a class="btn btn-ghost" href="https://dexscreener.com/robinhood/TBA" target="_blank" rel="noopener noreferrer">Chart</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="chart" class="mx-auto max-w-6xl scroll-mt-28 px-4 py-16">
+      <div class="mb-6 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p class="font-command text-xs tracking-[0.32em] text-fur">LIVE WIRE // DEXSCREENER</p>
+          <h2 class="mt-2 font-command text-4xl uppercase text-cream">$SIF chart</h2>
+        </div>
+        <a class="btn btn-gold" href="https://dexscreener.com/robinhood/TBA" target="_blank" rel="noopener noreferrer">Chart</a>
+      </div>
+      <div class="panel overflow-hidden">
+        <div class="flex items-center justify-between border-b border-gold/30 px-4 py-2 font-command text-xs tracking-[0.22em] text-gold">
+          <span>DEXSCREENER // ROBINHOOD // $SIF</span>
+          <span>PAIR TBA</span>
+        </div>
+        <iframe
+          title="Super Inu Force Dexscreener chart"
+          src="https://dexscreener.com/robinhood/TBA?embed=1&loadChartSettings=0&trades=0&tabs=0&info=0&chartLeftToolbar=0&chartDefaultOnMobile=1&chartTheme=dark&theme=dark&chartStyle=1&chartType=usd&interval=15"
+          class="h-[480px] w-full bg-ink md:h-[560px]"
+          loading="lazy"
+        ></iframe>
+      </div>
+      <div class="panel mt-4 flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p class="font-command text-xs tracking-[0.28em] text-gold">CONTRACT ADDRESS</p>
+          <p class="js-ca mt-1 break-all font-mono text-xl text-cream">TBA</p>
+        </div>
+        <button class="btn btn-flag" type="button" data-copy-ca>Copy CA</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-gold/40 bg-deep/95">
+    <div class="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-10 sm:flex-row sm:items-center sm:justify-between">
+      <div class="flex items-center gap-3">
+        <img src="logo.jpg" alt="" class="h-14 w-14 border border-gold object-cover object-top" />
+        <div>
+          <p class="font-command tracking-[0.18em] text-cream">SUPER INU FORCE</p>
+          <p class="font-stencil text-gold">$SIF</p>
+        </div>
+      </div>
+      <p class="max-w-md text-sm leading-relaxed text-olive">
+        A meme token on Robinhood Chain. Super Inu Force is not a federal agency and is not affiliated with any government office. This page is a field guide, not financial advice.
+      </p>
+      <a href="https://x.com/superinuforce" target="_blank" rel="noopener noreferrer">
+        <img src="x.png" alt="Super Inu Force on X" class="h-12 w-12 border border-gold" />
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById("menu-btn");
+    const mobileNav = document.getElementById("mobile-nav");
+    menuBtn.addEventListener("click", () => {
+      const open = mobileNav.classList.toggle("hidden") === false;
+      menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+      menuBtn.textContent = open ? "Close" : "Menu";
+    });
+    mobileNav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        mobileNav.classList.add("hidden");
+        menuBtn.setAttribute("aria-expanded", "false");
+        menuBtn.textContent = "Menu";
+      });
+    });
+
+    const zulu = document.getElementById("zulu");
+    const tick = () => {
+      zulu.textContent = new Date().toISOString().slice(11, 19) + " Z";
+    };
+    tick();
+    setInterval(tick, 1000);
+
+    const ca = document.getElementById("contract-address").textContent.trim();
+    document.querySelectorAll(".js-ca").forEach((node) => {
+      node.textContent = ca;
+    });
+
+    function legacyCopy() {
+      const area = document.createElement("textarea");
+      area.value = ca;
+      area.setAttribute("readonly", "");
+      area.style.position = "fixed";
+      area.style.top = "0";
+      area.style.left = "0";
+      area.style.width = "2em";
+      area.style.height = "2em";
+      area.style.padding = "0";
+      area.style.border = "none";
+      area.style.outline = "none";
+      area.style.boxShadow = "none";
+      area.style.background = "transparent";
+      document.body.appendChild(area);
+      area.focus();
+      area.select();
+      area.setSelectionRange(0, area.value.length);
+      let ok = false;
+      try {
+        ok = document.execCommand("copy");
+      } catch (error) {
+        ok = false;
+      }
+      area.remove();
+      return ok;
+    }
+
+    async function copyCa(button) {
+      const previous = button.textContent;
+      let ok = false;
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(ca);
+          ok = true;
+        }
+      } catch (error) {
+        ok = false;
+      }
+      if (!ok) ok = legacyCopy();
+      button.textContent = ok ? "Copied" : "Copy failed";
+      setTimeout(() => {
+        button.textContent = previous;
+      }, 1600);
+    }
+
+    document.querySelectorAll("[data-copy-ca]").forEach((button) => {
+      button.addEventListener("click", () => copyCa(button));
+    });
+  </script>
+</body>
+</html>
