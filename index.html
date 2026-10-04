@@ -50,7 +50,10 @@
     }
     .war-bg {
       z-index: -3;
-      background: url("trump-field.jpg") left center / cover no-repeat;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: left center;
     }
     .war-shade {
       z-index: -2;
@@ -144,7 +147,9 @@
   </style>
 </head>
 <body class="font-body antialiased">
-  <div class="war-bg" aria-hidden="true"></div>
+  <video class="war-bg" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+    <source src="trump-field.mp4" type="video/mp4" />
+  </video>
   <div class="war-shade" aria-hidden="true"></div>
   <div class="scan" aria-hidden="true"></div>
 
@@ -270,7 +275,7 @@
 
       <article class="panel overflow-hidden">
         <div class="grid lg:grid-cols-2">
-          <img src="fight-field.jpg" alt="Super Inu Force commander charging a muddy battlefield under AI drones, tanks and a torn American flag behind him" class="h-full min-h-72 w-full object-cover" />
+          <video src="fight-field.mp4" class="h-full min-h-72 w-full object-cover" autoplay muted loop playsinline aria-label="Super Inu Force commander charging a muddy battlefield under AI drones, tanks and a torn American flag behind him"></video>
           <div class="flex flex-col justify-center p-6 md:p-10">
             <p class="font-command text-xs tracking-[0.28em] text-gold">REPORT 01 // THE LAUNCH</p>
             <h3 class="mt-2 font-command text-3xl uppercase text-cream">Orders hit the mud</h3>
@@ -286,7 +291,7 @@
 
       <article class="panel mt-6 overflow-hidden">
         <div class="grid lg:grid-cols-2">
-          <img src="fight-intel.jpg" alt="Commander on battlefield rubble with glowing eyes, reading a holographic AI risk board beside a torn American flag" class="order-1 h-full min-h-72 w-full object-cover lg:order-2" />
+          <video src="fight-intel.mp4" class="order-1 h-full min-h-72 w-full object-cover lg:order-2" autoplay muted loop playsinline aria-label="Commander on battlefield rubble with glowing eyes, reading a holographic AI risk board beside a torn American flag"></video>
           <div class="order-2 flex flex-col justify-center p-6 md:p-10 lg:order-1">
             <p class="font-command text-xs tracking-[0.28em] text-gold">REPORT 02 // RISK ASSESSMENT</p>
             <h3 class="mt-2 font-command text-3xl uppercase text-cream">Every system, scored</h3>
@@ -302,7 +307,7 @@
 
       <article class="panel mt-6 overflow-hidden">
         <div class="grid items-center lg:grid-cols-[1.15fr_0.85fr]">
-          <img src="fight-squad.jpg" alt="Three Super Inu Force Shiba soldiers charging a battlefield trench past wrecked combat robots" class="h-full min-h-72 w-full object-cover" />
+          <video src="fight-squad.mp4" class="h-full min-h-72 w-full object-cover" autoplay muted loop playsinline aria-label="Three Super Inu Force Shiba soldiers charging a battlefield trench past wrecked combat robots"></video>
           <div class="p-6 md:p-10">
             <p class="font-command text-xs tracking-[0.28em] text-gold">REPORT 03 // THE RECOMMENDATION</p>
             <h3 class="mt-2 font-command text-3xl uppercase text-cream">What Washington should do</h3>
@@ -412,6 +417,12 @@
   </footer>
 
   <script>
+    const warBg = document.querySelector(".war-bg");
+    if (warBg && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      warBg.removeAttribute("autoplay");
+      warBg.pause();
+    }
+
     const menuBtn = document.getElementById("menu-btn");
     const mobileNav = document.getElementById("mobile-nav");
     menuBtn.addEventListener("click", () => {
